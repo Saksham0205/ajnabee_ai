@@ -1,3 +1,4 @@
+import 'package:ajnabee_ai/screens/boarding_screen.dart';
 import 'package:ajnabee_ai/screens/home_screen.dart';
 import 'package:ajnabee_ai/widgets/custom_loading.dart';
 import 'package:flutter/material.dart';
@@ -14,25 +15,17 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     Future.delayed(Duration(seconds: 2),(){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>HomeScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>BoardingScreen()));
     });
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Spacer(flex: 2,),
-          Center(
-            child: Card(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
-              child: Image.asset("assets/images/ai_app_logo.png",height: 100.h,width:100.w ,),
-            ),
-          ),
-          Spacer(),
-          CustomLoading(),
-
-        ],
+      body: Center(
+        child: Card(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
+          child: Image.asset("assets/images/ai_app_logo.png",height: 100.h,width:100.w ,),
+        ),
       ),
     );
   }
