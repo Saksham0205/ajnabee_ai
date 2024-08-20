@@ -1,4 +1,3 @@
-import 'package:ajnabee_ai/main.dart';
 import 'package:ajnabee_ai/model/onBoarding.dart';
 import 'package:ajnabee_ai/screens/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +10,7 @@ class BoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c= PageController();
+
     final list = [
       onBoarding(
           text:
@@ -18,7 +18,7 @@ class BoardingScreen extends StatelessWidget {
           lottie: "boarding 01"),
       onBoarding(
           text:
-              "You're all set! Dive into **AjnabeeAI** and start creating, translating, and exploring like never before. Let’s get started!",
+              "You're all set! Dive into AjnabeeAI and start creating, translating, and exploring like never before. Let’s get started!",
           lottie: "boarding02")
     ];
     return Scaffold(
@@ -60,22 +60,22 @@ class BoardingScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   ElevatedButton(
                       onPressed: () {
                         if(index==list.length-1){
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>HomeScreen()));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>const HomeScreen()));
                         }else{
-                          c.nextPage(duration: Duration(milliseconds: 500), curve: Curves.ease);
+                          c.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.ease);
                         }
                       },
-                      child:
-                          Text(index==list.length-1?"Finish":"Next", style: TextStyle(color: Colors.white)),
                       style: ElevatedButton.styleFrom(
                           elevation: 0,
-                          shape: StadiumBorder(),
-                          backgroundColor: Colors.green.shade400)),
-                  Spacer(flex: 2),
+                          shape: const StadiumBorder(),
+                          backgroundColor: Colors.green.shade400),
+                      child:
+                          Text(index==list.length-1?"Finish":"Next", style: const TextStyle(color: Colors.white))),
+                  const Spacer(flex: 2),
                 ],
               );
             }));
