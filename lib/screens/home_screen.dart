@@ -1,7 +1,6 @@
 import 'package:ajnabee_ai/widgets/home_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../helper/pref.dart';
 
 class HomeScreen extends StatefulWidget {
