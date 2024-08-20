@@ -2,6 +2,7 @@ import 'package:ajnabee_ai/screens/boarding_screen.dart';
 import 'package:ajnabee_ai/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../helper/pref.dart';
 
@@ -16,12 +17,15 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (_) => Pref.showOnBoarnding
-                  ? const BoardingScreen()
-                  : const HomeScreen()));
+      // Navigator.pushReplacement(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: (_) => Pref.showOnBoarnding
+      //             ? const BoardingScreen()
+      //             : const HomeScreen()));
+      Get.off(()=> Pref.showOnBoarnding
+                      ? const BoardingScreen()
+                      : const HomeScreen());
     });
   }
 

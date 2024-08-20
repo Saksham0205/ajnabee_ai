@@ -2,8 +2,8 @@ import 'package:ajnabee_ai/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:get/get.dart';
+
 
 import 'helper/pref.dart';
 
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       designSize: const Size(375, 812),
       minTextAdapt: true,
       builder: (context,child){
-        return const MaterialApp(
+        return const GetMaterialApp(
           debugShowCheckedModeBanner: false,
           home: SplashScreen(),
         );

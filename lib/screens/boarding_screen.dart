@@ -2,6 +2,8 @@ import 'package:ajnabee_ai/model/onBoarding.dart';
 import 'package:ajnabee_ai/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:lottie/lottie.dart';
 
 class BoardingScreen extends StatelessWidget {
@@ -64,9 +66,9 @@ class BoardingScreen extends StatelessWidget {
                   ElevatedButton(
                       onPressed: () {
                         if(index==list.length-1){
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>const HomeScreen()));
+                          Get.off(()=> const HomeScreen());
                         }else{
-                          c.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.ease);
+                          c.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.ease);
                         }
                       },
                       style: ElevatedButton.styleFrom(
