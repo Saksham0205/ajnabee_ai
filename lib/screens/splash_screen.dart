@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
       //         builder: (_) => Pref.showOnBoarnding
       //             ? const BoardingScreen()
       //             : const HomeScreen()));
-      Get.off(()=> Pref.showOnBoarnding
+      Get.off(()=> Pref.showOnBoarding
                       ? const BoardingScreen()
                       : const HomeScreen());
     });

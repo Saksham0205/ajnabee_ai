@@ -7,6 +7,6 @@ class Pref{
     Hive.defaultDirectory = (await getApplicationDocumentsDirectory()).path;
     _box =Hive.box(name: "myData");
   }
-  static bool get showOnBoarnding=> _box.get('showOnBoarnding',defaultValue: true);
-  static set showOnBoarnding(bool v)=> _box.put("showOnBoarnding", v);
+  static bool get showOnBoarding=> _box.get('showOnBoarnding',defaultValue: true);
+  static set showOnBoarding(bool v)=> _box.put("showOnBoarnding", v);
 }

@@ -1,7 +1,9 @@
-import 'package:ajnabee_ai/widgets/home_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../helper/pref.dart';
+import '../model/hometype.dart';
+import '../widgets/home_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,15 +13,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    Pref.showOnBoarnding=false;
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    Pref.showOnBoarding = false;
   }
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+
+    //sample api call
+    // APIs.getAnswer('hii');
+
+    return Scaffold(
+      //app bar
       appBar: AppBar(
         title: Text(
           "AjnabeeAI",
@@ -48,11 +57,11 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
+
+
+      //body
       body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
-        children: [
-          HomeCard(),
-        ],
+        children: HomeType.values.map((e) => HomeCard(homeType: e)).toList(),
       ),
     );
   }
