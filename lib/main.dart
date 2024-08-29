@@ -24,7 +24,10 @@ class MyApp extends StatelessWidget {
       designSize: const Size(375, 812),
       minTextAdapt: true,
       builder: (context,child){
-        return const GetMaterialApp(
+        return  GetMaterialApp(
+          theme: ThemeData(
+            useMaterial3: false,
+          ),
           debugShowCheckedModeBanner: false,
           home: SplashScreen(),
         );

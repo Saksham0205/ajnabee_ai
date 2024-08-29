@@ -6,14 +6,13 @@ import '../model/hometype.dart';
 import '../widgets/home_card.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -23,45 +22,60 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-    //sample api call
-    // APIs.getAnswer('hii');
-
     return Scaffold(
-      //app bar
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Text(
           "AjnabeeAI",
-          style: TextStyle(color: Colors.green, fontWeight: FontWeight.w700),
+          style: TextStyle(
+            color: Colors.green,
+            fontWeight: FontWeight.w700,
+            fontSize: 24.sp,
+          ),
         ),
         centerTitle: true,
         elevation: 0,
         leading: Padding(
-          padding: EdgeInsets.only(left: 8.0.w),
+          padding: EdgeInsets.all(8.w),
           child: Image.asset(
             "assets/images/ai_app_logo.png",
-            height: 60.h,
-            width: 60.w,
+            height: 40.h,
+            width: 40.w,
           ),
         ),
         actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 8.0.w),
-            child: IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.brightness_4_rounded,
-                  size: 30,
-                  color: Colors.green.withOpacity(0.75),
-                )),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.brightness_4_rounded,
+              size: 28.sp,
+              color: Colors.green.withOpacity(0.75),
+            ),
           )
         ],
       ),
-
-
-      //body
-      body: ListView(
-        children: HomeType.values.map((e) => HomeCard(homeType: e)).toList(),
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+          child: ListView(
+            children: [
+              Text(
+                "What would you like to do?",
+                style: TextStyle(
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+              SizedBox(height: 16.h),
+              ...HomeType.values.map((e) => Padding(
+                padding: EdgeInsets.only(bottom: 16.h),
+                child: HomeCard(homeType: e),
+              )).toList(),
+            ],
+          ),
+        ),
       ),
     );
   }

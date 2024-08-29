@@ -1,1 +1,1 @@
- String apikey = "sk-I9IUlCboXSCEsnQieWaHaTfptD8gNXy-iB_MtHOGz0T3BlbkFJYerJoUd2MqvJF0OVwk7Xzm1r1zovzeW66_VAyJDbkA";
+ String apiKey = "AIzaSyCwaH6zWZ3mNcuAJxUJsK-QbmVGYs2M2Us";
