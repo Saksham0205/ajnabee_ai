@@ -1,6 +1,9 @@
 import 'package:ajnabee_ai/controller/language_controller.dart';
+import 'package:ajnabee_ai/widgets/language_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class TranslatorFeature extends StatefulWidget {
   const TranslatorFeature({super.key});
@@ -31,24 +34,32 @@ class _TranslatorFeatureState extends State<TranslatorFeature> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                height: 50.h,
-                width: 150.w,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20.r),
-                    border: Border.all(color: Colors.green)),
-                alignment: Alignment.center,
-                child: const Text("Auto"),
+              InkWell(
+                onTap: ()=> Get.bottomSheet(LanguageSheet(c: _c, s: _c.from,)),
+                borderRadius: BorderRadius.circular(20.r),
+                child: Container(
+                  height: 50.h,
+                  width: 150.w,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.r),
+                      border: Border.all(color: Colors.green)),
+                  alignment: Alignment.center,
+                  child:  Obx(()=> Text(_c.from.isEmpty? "From":_c.from.value)),
+                ),
               ),
               IconButton(onPressed: () {}, icon: const Icon(Icons.repeat)),
-              Container(
-                height: 50.h,
-                width: 150.w,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20.r),
-                    border: Border.all(color: Colors.green)),
-                alignment: Alignment.center,
-                child: const Text("Auto"),
+              InkWell(
+                onTap: ()=> Get.bottomSheet(LanguageSheet(c: _c, s: _c.to,)),
+                borderRadius: BorderRadius.circular(20.r),
+                child: Container(
+                  height: 50.h,
+                  width: 150.w,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.r),
+                      border: Border.all(color: Colors.green)),
+                  alignment: Alignment.center,
+                  child:  Obx(()=> Text(_c.to.isEmpty? "To":_c.to.value)),
+                ),
               ),
             ],
           ),
