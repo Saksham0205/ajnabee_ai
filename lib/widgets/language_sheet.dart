@@ -55,6 +55,7 @@ class _LanguageSheetState extends State<LanguageSheet> {
                   ? widget.c.lang
                   : widget.c.lang.where((e) => e.toLowerCase().contains(search.value)).toList();
               return ListView.builder(
+                physics: BouncingScrollPhysics(),
                 itemCount: list.length,
                 itemBuilder: (context, index) {
                   return Padding(
