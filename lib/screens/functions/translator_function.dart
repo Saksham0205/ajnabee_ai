@@ -1,19 +1,19 @@
-import 'package:ajnabee_ai/controller/language_controller.dart';
-import 'package:ajnabee_ai/widgets/language_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:ajnabee_ai/controller/language_controller.dart';
+import 'package:ajnabee_ai/widgets/language_sheet.dart';
 
 class TranslatorFeature extends StatefulWidget {
-  const TranslatorFeature({super.key});
+  const TranslatorFeature({Key? key}) : super(key: key);
 
   @override
   State<TranslatorFeature> createState() => _TranslatorFeatureState();
 }
 
 class _TranslatorFeatureState extends State<TranslatorFeature> {
-  final _c = TranslatorController();
+  final TranslatorController _c = Get.put(TranslatorController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,44 +27,23 @@ class _TranslatorFeatureState extends State<TranslatorFeature> {
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
       ),
-      body: ListView(
+      body: Obx(() => ListView(
         physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.only(top: 15.h),
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              InkWell(
-                onTap: ()=> Get.bottomSheet(LanguageSheet(c: _c, s: _c.from,)),
-                borderRadius: BorderRadius.circular(20.r),
-                child: Container(
-                  height: 50.h,
-                  width: 150.w,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.r),
-                      border: Border.all(color: Colors.green)),
-                  alignment: Alignment.center,
-                  child:  Obx(()=> Text(_c.from.isEmpty? "From":_c.from.value)),
-                ),
+              _buildLanguageSelector(_c.from, "From"),
+              IconButton(
+                onPressed: _c.swapLanguages,
+                icon: const Icon(Icons.swap_horiz),
               ),
-              IconButton(onPressed: () {}, icon: const Icon(Icons.repeat)),
-              InkWell(
-                onTap: ()=> Get.bottomSheet(LanguageSheet(c: _c, s: _c.to,)),
-                borderRadius: BorderRadius.circular(20.r),
-                child: Container(
-                  height: 50.h,
-                  width: 150.w,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.r),
-                      border: Border.all(color: Colors.green)),
-                  alignment: Alignment.center,
-                  child:  Obx(()=> Text(_c.to.isEmpty? "To":_c.to.value)),
-                ),
-              ),
+              _buildLanguageSelector(_c.to, "To"),
             ],
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0.w),
             child: TextFormField(
               controller: _c.textC,
               maxLines: null,
@@ -73,34 +52,32 @@ class _TranslatorFeatureState extends State<TranslatorFeature> {
                 hintText: "Translate Anything you want.....",
                 hintStyle: TextStyle(fontSize: 14.sp, color: Colors.grey),
                 border: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: Colors.black,
-                  ),
                   borderRadius: BorderRadius.circular(20.r),
                 ),
               ),
             ),
           ),
-          if(_c.resultC.text.isNotEmpty)
-          TextFormField(
-            controller: _c.textC,
-            textAlign: TextAlign.center,
-            maxLines: null,
-            decoration: InputDecoration(
-              hintText: "Translate Anything you want.....",
-              hintStyle: TextStyle(fontSize: 14.sp, color: Colors.grey),
-              border: OutlineInputBorder(
-                borderSide: const BorderSide(
-                  color: Colors.black,
+          if (_c.resultC.text.isNotEmpty)
+            Padding(
+              padding: EdgeInsets.all(8.0.w),
+              child: TextFormField(
+                controller: _c.resultC,
+                readOnly: true,
+                maxLines: null,
+                minLines: 5,
+                decoration: InputDecoration(
+                  hintText: "Translation will appear here",
+                  hintStyle: TextStyle(fontSize: 14.sp, color: Colors.grey),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.r),
+                  ),
                 ),
-                borderRadius: BorderRadius.circular(20.r),
               ),
             ),
-          ),
-          SizedBox(height: 10.h,),
+          SizedBox(height: 10.h),
           Align(
             child: ElevatedButton(
-              onPressed: (){},
+              onPressed: _c.isLoading.value ? null : _c.translate,
               style: ElevatedButton.styleFrom(
                 elevation: 5,
                 shape: RoundedRectangleBorder(
@@ -109,7 +86,9 @@ class _TranslatorFeatureState extends State<TranslatorFeature> {
                 backgroundColor: Colors.green.shade400,
                 padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 40.w),
               ),
-              child: Text(
+              child: _c.isLoading.value
+                  ? CircularProgressIndicator(color: Colors.white)
+                  : Text(
                 "Translate",
                 style: TextStyle(
                   color: Colors.white,
@@ -120,6 +99,23 @@ class _TranslatorFeatureState extends State<TranslatorFeature> {
             ),
           ),
         ],
+      )),
+    );
+  }
+
+  Widget _buildLanguageSelector(RxString language, String defaultText) {
+    return InkWell(
+      onTap: () => Get.bottomSheet(LanguageSheet(c: _c, s: language)),
+      borderRadius: BorderRadius.circular(20.r),
+      child: Container(
+        height: 50.h,
+        width: 150.w,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.r),
+          border: Border.all(color: Colors.green),
+        ),
+        alignment: Alignment.center,
+        child: Text(language.isEmpty ? defaultText : language.value),
       ),
     );
   }

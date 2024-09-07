@@ -2,11 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../apis/apis.dart';
+
 class TranslatorController extends GetxController{
   final textC= TextEditingController();
   final resultC = TextEditingController();
 
   final from =''.obs, to =''.obs;
+  final isLoading = false.obs;
+  final detectedLanguage = ''.obs;
 
   final lang = const [
     "Afar",
@@ -193,12 +197,53 @@ class TranslatorController extends GetxController{
     "Zulu"
   ];
 
-  void askQuestion() async{
-    if(textC.text.trim().isNotEmpty){
-        textC.text='';
-
-    }else{
-      const SnackBar(content: Text("Ask Anything"));
+  void translate() async {
+    if (textC.text.trim().isEmpty) {
+      Get.snackbar('Error', 'Please enter text to translate',
+          snackPosition: SnackPosition.BOTTOM);
+      return;
     }
+
+    if (to.isEmpty) {
+      Get.snackbar('Error', 'Please select the target language',
+          snackPosition: SnackPosition.BOTTOM);
+      return;
+    }
+
+    isLoading.value = true;
+    try {
+      String sourceLanguage = from.value;
+
+      if (sourceLanguage.isEmpty) {
+        detectedLanguage.value = await APIs.detectLanguage(textC.text.trim());
+        sourceLanguage = detectedLanguage.value;
+        from.value = sourceLanguage;
+      }
+
+      final result = await APIs.translateWithGemini(
+        from: sourceLanguage,
+        to: to.value,
+        text: textC.text.trim(),
+      );
+      resultC.text = result;
+    } catch (e) {
+      Get.snackbar('Error', 'Translation failed. Please try again.',
+          snackPosition: SnackPosition.BOTTOM);
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  void swapLanguages() {
+    final temp = from.value;
+    from.value = to.value;
+    to.value = temp;
+  }
+
+  @override
+  void onClose() {
+    textC.dispose();
+    resultC.dispose();
+    super.onClose();
   }
 }
