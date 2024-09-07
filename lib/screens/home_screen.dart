@@ -44,16 +44,6 @@ class _HomeScreenState extends State<HomeScreen> {
             width: 40.w,
           ),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.brightness_4_rounded,
-              size: 28.sp,
-              color: Colors.green.withOpacity(0.75),
-            ),
-          )
-        ],
       ),
       body: SafeArea(
         child: Padding(
