@@ -46,22 +46,24 @@ class _ChatbotFeatureState extends State<ChatbotFeature> {
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          color: Colors.grey[100],
-        ),
-        child: Column(
-          children: [
-            Expanded(
-              child: Obx(() => ListView.builder(
-                controller: _scrollController,
-                itemCount: _c.list.length,
-                padding: EdgeInsets.only(bottom: 80.h),
-                itemBuilder: (context, index) => MessageCard(message: _c.list[index]),
-              )),
-            ),
-            _buildInputArea(),
-          ],
+      body: SafeArea(
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.grey[100],
+          ),
+          child: Column(
+            children: [
+              Expanded(
+                child: Obx(() => ListView.builder(
+                  controller: _scrollController,
+                  itemCount: _c.list.length,
+                  padding: EdgeInsets.only(bottom: 80.h),
+                  itemBuilder: (context, index) => MessageCard(message: _c.list[index]),
+                )),
+              ),
+              _buildInputArea(),
+            ],
+          ),
         ),
       ),
     );
